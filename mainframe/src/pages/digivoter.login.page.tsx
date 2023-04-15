@@ -10,8 +10,8 @@ const Image = styled.img`
 
 const DigivoterRegistration = () => {
 
-    const handleRegister = (e: any) => {
-        e.preventDefault();
+    const handleRegister = (str = "/scanface/verification") => {
+        navigate(`${str}`);
         // handle register logic
     };
 
@@ -44,7 +44,7 @@ const DigivoterRegistration = () => {
                     <Typography variant="h5" color="primary" mb={3} sx={{ fontWeight: 700 }}>
                         Register for DigiVoter
                     </Typography>
-                    <Box component="form" onSubmit={handleRegister}
+                    <Box component="form" onSubmit={(e) => e.preventDefault()}
                         sx={{
                             display: "flex",
                             flexDirection: "column"
@@ -73,7 +73,7 @@ const DigivoterRegistration = () => {
                             required
                         />
 
-                        <Button variant="contained" type="submit" sx={{ mb: 2, height: '50px' }}>
+                        <Button variant="contained" type="submit" sx={{ mb: 2, height: '50px' }} onClick={() => handleRegister("/scanface/verification")}>
                             Register
                         </Button>
                         <Typography variant="body2">
@@ -84,7 +84,7 @@ const DigivoterRegistration = () => {
                         </Typography>
                     </Box>
                 </Box>
-            </Box>
+            </Box >
         </>
     )
 }

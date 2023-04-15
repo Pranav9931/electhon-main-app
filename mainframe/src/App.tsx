@@ -3,7 +3,7 @@ import './App.css';
 import { NavbarComponent } from './components';
 import styled from '@emotion/styled';
 import { Route, Routes } from 'react-router-dom';
-import { DigivoterRegistration, HomePage, ImageRecognition, LoginPage } from './pages';
+import { DigivoterRegistration, HomePage, ImageRecognition, LoginPage, UserSuccess } from './pages';
 
 const NavBottomLine = styled.div`
   width: 100%;
@@ -29,6 +29,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<DigivoterRegistration />} />
         <Route path="/scanface/verification" element={<ImageRecognition />} />
+        <Route path="/usercreation/success" element={<UserSuccess />} />
       </Routes>
     </div>
   );
