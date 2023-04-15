@@ -4,8 +4,10 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { blue, green, orange, red, grey } from '@mui/material/colors';
 
 import userData from "../database/userDatabase.json"
-import { Button, Typography } from '@mui/material';
+import { Button, IconButton, Typography } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Chat } from '@mui/icons-material';
+import { ChatbotComponent } from '../components';
 
 interface UserProps {
     name: string;
@@ -194,6 +196,8 @@ const SlotsCard = () => {
 
 const UserDashboard = () => {
 
+    const [activeChat, setActiveChat] = useState(false);
+
     const params = useParams();
     const id = params.id;
 
@@ -219,25 +223,36 @@ const UserDashboard = () => {
     }, [])
 
     return (
-        <UserDashboardComponent>
-            <UserTable
-                name={user.name}
-                aadhaarCard={user.aadhaar}
-                epicNumber={user.epic}
-                imageSrc={user.userAvatar}
-            />
-            <TableWrapper>
-                <TableTitle>Constituency Details</TableTitle>
-                <ConstituencyTable
-                    state={user.state}
-                    district={user.district}
-                    constituency={user.constituency}
-                />
-            </TableWrapper>
-            <br />
-            {user.hasBookedSlot ? "Your slot is booked" : <SlotsCard />}
+        <>
+            {!activeChat ?
+                <UserDashboardComponent>
+                    <UserTable
+                        name={user.name}
+                        aadhaarCard={user.aadhaar}
+                        epicNumber={user.epic}
+                        imageSrc={user.userAvatar}
+                    />
+                    <TableWrapper>
+                        <TableTitle>Constituency Details</TableTitle>
+                        <ConstituencyTable
+                            state={user.state}
+                            district={user.district}
+                            constituency={user.constituency}
+                        />
+                    </TableWrapper>
+                    <br />
+                    {user.hasBookedSlot ? "Your slot is booked" : <SlotsCard />}
 
-        </UserDashboardComponent>
+                    <IconButton color="primary" aria-label="add to shopping cart" sx={{ position: "fixed", bottom: 0, right: 0, width: "70px", height: '70px', background: '#1976d230', margin: '0 20px 20px 0' }} onClick={() => setActiveChat(!activeChat)}>
+                        <Chat />
+                    </IconButton>
+
+                </UserDashboardComponent>
+                :
+                <ChatbotComponent state={setActiveChat} />
+            }
+
+        </>
     );
 };
 
