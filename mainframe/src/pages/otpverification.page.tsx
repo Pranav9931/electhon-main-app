@@ -8,8 +8,11 @@ const Image = styled.img`
     height: 50px;
 `;
 
-const LoginPage = () => {
+const OTPVerification = () => {
+
+    const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
+    const [otp, setOTP] = useState("");
 
     const toggleIsLogin = () => {
         setIsLogin(!isLogin);
@@ -25,7 +28,18 @@ const LoginPage = () => {
         // handle register logic
     };
 
-    const navigate = useNavigate();
+    const handleContinue = () => {
+        if (otp === "1234") {
+            navigate("/user/dashboard/6q7r8s9t-0u1v-2w3x-4y5z-a6b7c8d9e0f")
+        }
+        else if (otp === "2345") {
+            navigate("/user/dashboard/6q7r8s9t-0u1v-2w3x-4y5z-a6b7c8d9e2e")
+
+        }
+        else {
+            navigate("/user/dashboard/1a2b3c4d-5e6f-7g8h-9i0j-k1l2m3n4o5p")
+        }
+    }
 
     return (
         <>
@@ -52,7 +66,7 @@ const LoginPage = () => {
                     }}
                 >
                     <Typography variant="h5" color="primary" mb={3} sx={{ fontWeight: 700 }}>
-                        {isLogin ? "Login" : "Register"}
+                        Enter OTP
                     </Typography>
                     <Box component="form" onSubmit={isLogin ? handleLogin : handleRegister}
                         sx={{
@@ -60,38 +74,21 @@ const LoginPage = () => {
                             flexDirection: "column"
                         }}
                     >
-                        {!isLogin && (
-                            <>
-                                <TextField
-                                    variant="outlined"
-                                    label="Full Name"
-                                    type="password"
-                                    sx={{ mb: 2 }}
-                                    required
-                                />
-                                <TextField
-                                    variant="outlined"
-                                    label="Aadhaar Number"
-                                    type="password"
-                                    sx={{ mb: 2 }}
-                                    required
-                                />
-                            </>
-                        )}
                         <TextField
                             variant="outlined"
-                            label="Aadhaar Number"
+                            label="OTP"
                             sx={{ mb: 2 }}
+                            onChange={(e) => setOTP(e.target.value)}
                             required
                         />
 
-                        <Button variant="contained" type="submit" sx={{ mb: 2, height: '50px' }} onClick={() => navigate("/otpverify")}>
-                            {isLogin ? "Login" : "Register"}
+                        <Button variant="contained" type="submit" sx={{ mb: 2, height: '50px' }} onClick={() => handleContinue()}>
+                            Continue
                         </Button>
                         <Typography variant="body2">
-                            {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+                            Didn't Receive OTP?
                             <Button color="primary" onClick={toggleIsLogin}>
-                                {isLogin ? "Register" : "Login"}
+                                Resend
                             </Button>
                         </Typography>
                     </Box>
@@ -101,4 +98,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default OTPVerification;
