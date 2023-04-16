@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { NavbarComponent } from './components';
+import { FooterComponent, NavbarComponent } from './components';
 import styled from '@emotion/styled';
 import { Route, Routes } from 'react-router-dom';
 import { DigivoterRegistration, HomePage, ImageRecognition, LoginPage, OTPVerification, SlotSuccess, UserDashboard, UserSuccess } from './pages';
@@ -23,8 +23,10 @@ function App() {
         Bringing Democracy to your fingertips. <span style={{ fontWeight: 700, margin: '0 0 0 5px' }}>#Electhon'23</span>
       </NavBottomLine>
       <Routes>
-        <Route path="/" element={
+        <Route path="/" element={<>
           <HomePage />
+          <FooterComponent />
+        </>
         } />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/otpverify" element={<OTPVerification />} />
