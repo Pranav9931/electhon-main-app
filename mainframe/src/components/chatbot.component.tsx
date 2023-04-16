@@ -8,22 +8,31 @@ import { useNavigate } from 'react-router-dom';
 const ChatbotComponent = ({ state }: any) => {
     const [input, setInput] = useState('');
     const [response, setResponse] = useState('');
-
+    const [isPrinting, setIsPrinting] = useState(false);
     const handleInputChange = (event: any) => {
         setInput(event.target.value);
     };
 
-    const handleFormSubmit = (event: any) => {
+    const handleFormSubmit = async (event: any) => {
         event.preventDefault();
 
         // Find the answer to the user's question
         const answer = data.data.find((item: any) => item.ques.toLowerCase() === input.toLowerCase())?.ans;
 
         // Set the response to display the answer, or a message if no answer was found
-        setResponse(answer ? answer : "I'm sorry, I don't know the answer to that question.");
+        if (answer) {
+            setIsPrinting(true);
+            for (let i = 0; i < answer.length; i++) {
+                setResponse((prevResponse) => prevResponse + answer[i]);
+                await new Promise((resolve) => setTimeout(resolve, 10)); // add a delay between each letter
+            }
+            setIsPrinting(false);
+        } else {
+            setResponse("I'm sorry, I don't know the answer to that question.");
+        }
 
         // Clear the input field
-        setInput('');
+        // setInput('');
     };
 
     const navigate = useNavigate();
@@ -55,7 +64,7 @@ const ChatbotComponent = ({ state }: any) => {
                 </form>
                 {response && (
                     <Box
-                        dangerouslySetInnerHTML={{ __html: response }}
+                        dangerouslySetInnerHTML={{ __html: isPrinting ? response + '<span class="cursor">|</span>' : response }}
                         sx={{
                             marginTop: '20px',
                             backgroundColor: 'white',

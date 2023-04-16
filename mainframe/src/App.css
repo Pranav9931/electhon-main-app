@@ -53,9 +53,10 @@ table {
 th, td {
   text-align: left;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #1976d250;
+  color: #1976d2;
 }
 
 th {
-  background-color: #f2f2f2;
+  background-color: #1976d230;
 }

@@ -36,7 +36,8 @@ const TableWrapper = styled.div`
 
 const TableTitle = styled.h2`
     font-size: 18px;
-    margin-bottom: 10px;
+    margin: 10px 0;
+    color: #1976d2;
 `;
 
 const UserTable = ({ name, aadhaarCard, epicNumber, imageSrc }: UserProps) => {
@@ -226,6 +227,8 @@ const UserDashboard = () => {
         <>
             {!activeChat ?
                 <UserDashboardComponent>
+                    <TableTitle>Profile Details</TableTitle>
+
                     <UserTable
                         name={user.name}
                         aadhaarCard={user.aadhaar}
